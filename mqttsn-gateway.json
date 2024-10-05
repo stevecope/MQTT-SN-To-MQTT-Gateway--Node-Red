@@ -1,0 +1,181 @@
+[
+    {
+        "id": "ee81b6eeca9eb47e",
+        "type": "group",
+        "z": "f7e590bae3b2c1d3",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "31b45e8375632f76",
+            "5e2525525f61f56d",
+            "103948278a7671e9",
+            "5fa339b17d0dd714",
+            "3ed487636ba1fb4a",
+            "f14563e3ede2732e"
+        ],
+        "x": 194,
+        "y": 59,
+        "w": 772,
+        "h": 262
+    },
+    {
+        "id": "31b45e8375632f76",
+        "type": "udp in",
+        "z": "f7e590bae3b2c1d3",
+        "g": "ee81b6eeca9eb47e",
+        "name": "",
+        "iface": "",
+        "port": "1887",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 280,
+        "y": 200,
+        "wires": [
+            [
+                "5e2525525f61f56d"
+            ]
+        ]
+    },
+    {
+        "id": "5e2525525f61f56d",
+        "type": "function",
+        "z": "f7e590bae3b2c1d3",
+        "g": "ee81b6eeca9eb47e",
+        "name": "Receive MQTTSN",
+        "func": "let parser = mqttsnPacket.parser();\n//let response = parser.parse(msg.payload);\n//node.log(response);\nparser.on('packet', function (packet) {\n\n    node.send({ payload: packet });\n});\n\nparser.parse(msg.payload);\n//return msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "mqttsnPacket",
+                "module": "mqttsn-packet"
+            }
+        ],
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "5fa339b17d0dd714"
+            ]
+        ]
+    },
+    {
+        "id": "103948278a7671e9",
+        "type": "mqtt out",
+        "z": "f7e590bae3b2c1d3",
+        "g": "ee81b6eeca9eb47e",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9a14aba4cf68d60c",
+        "x": 890,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "5fa339b17d0dd714",
+        "type": "change",
+        "z": "f7e590bae3b2c1d3",
+        "g": "ee81b6eeca9eb47e",
+        "name": "extract payload and topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.topicId",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 280,
+        "wires": [
+            [
+                "103948278a7671e9"
+            ]
+        ]
+    },
+    {
+        "id": "3ed487636ba1fb4a",
+        "type": "comment",
+        "z": "f7e590bae3b2c1d3",
+        "g": "ee81b6eeca9eb47e",
+        "name": "mqttsn-packet",
+        "info": "https://www.npmjs.com/package/mqttsn-packet\n\nhttps://docs.arduino.cc/tutorials/ethernet-shield-rev2/udp-send-receive-string/?_gl=1*x4nkyy*_gcl_au*MzcyMzU0MzM2LjE3MjUxMjU4MDA.*FPAU*MzcyMzU0MzM2LjE3MjUxMjU4MDA.*_ga*MTY4MzI4NzUzNC4xNzI1MTI1Nzk2*_ga_NEXN8H46L5*MTcyNTEyNTc5NS4xLjEuMTcyNTEyNTg0Ni4wLjAuNjg0NDQwMTM3*_fplc*SjRueVFRUjIxZzlsMk5BOTBOSGtpVVBKVWhvUzE0UWdxNEVHRCUyQmM2QmQxdmhsZWxmYktOUmdIOW1ndUJlSXpvNGpIVnd3ODJGNGlQdWt6VVgyQXhtQ0JmZ09CbmQ3T01qWHlDajZUZFN0Vk0xV1UlMkJqSTVxQXg1VkFlWWFsQSUzRCUzRA..",
+        "x": 340,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f14563e3ede2732e",
+        "type": "comment",
+        "z": "f7e590bae3b2c1d3",
+        "g": "ee81b6eeca9eb47e",
+        "name": "version 1",
+        "info": "",
+        "x": 500,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "9a14aba4cf68d60c",
+        "type": "mqtt-broker",
+        "name": "local1884",
+        "broker": "localhost",
+        "port": "1884",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
