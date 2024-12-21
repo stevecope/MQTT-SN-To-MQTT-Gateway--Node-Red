@@ -21,4 +21,4 @@ Application Areas
 
 Any areas where you only need to publish data and not receive data.
 
-It is particularly suited for lots of sensors as the gateway doesn't use a single MQTT connection for all MQTT-SN clients.
+It is particularly suited for lots of sensors as the gateway  uses a single MQTT connection for all MQTT-SN clients.
