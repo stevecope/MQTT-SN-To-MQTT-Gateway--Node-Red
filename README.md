@@ -9,13 +9,16 @@ Using this type of gateway simple MQTT-SN sensors can publish messages to MQTT c
 
 The MQTT-SN sensor would not need to implement the full MQTT-SN Protocol stack.
 
+incoming MQTT-SN messages use short topics and and they are combined with a base topic for mqtt outgoing messages.
+An incoming message on topic TT will be send to the MQTT broker on topic basetopic/TT.
+
 With a bit of extra coding topic and messages filtering, and message combining could also be added.
 
 There is a video here - https://youtu.be/SAiOIOHXN0I?si=ekZkwDOV_MqDDNL7
 
 Settings Required
 
-You will need to configure the UDP listener port and the MQTT broker IP address and port.
+You will need to configure the UDP listener port and the MQTT broker IP address and port.Also the base topic for MQTT outgoing messages.
 
 Application Areas
 
