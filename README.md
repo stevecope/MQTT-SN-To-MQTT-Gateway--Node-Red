@@ -1,6 +1,6 @@
 Current Gateways implement the full MQTT-SN protocol and although they work, they introduce an extra layer of complexity and generally require an MQTT connection per MQTT-SN client.
 
-For this reason I created a simple node-red flow that functions as an MQTT-SN Gateway for MQTT-SN QOS 3 messages only.
+For this reason I created a simple node-red flow that functions as an MQTT-SN Gateway for MQTT-SN QOS 3 (-1) messages only.
 
 The flow leverage's the existing packet creation and decode library code mqttsn-packet which can be downloaded here
 
